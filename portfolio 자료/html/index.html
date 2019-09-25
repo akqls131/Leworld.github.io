@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Document</title>
+	<link rel="stylesheet" href="../css/reset.css">
+	<link rel="shortcut icon" href="../favicon.ico">
+
+
+</head>
+<style>
+
+	::-webkit-scrollbar {display:none;}
+	/*2번째 페이지부터 fixed되야함 !*/
+
+
+
+.wrap {
+	position:relative;
+	height:100%;
+}
+header {
+	position:fixed;
+	top:0;
+	right:0;
+	height:100px;
+	background: rgba(0,0,0,0.5);
+	opacity:0.5;
+	z-index: 999;
+	display:none;
+	width:100%;
+	;
+	
+}
+header nav {
+	overflow:hidden;
+}
+
+header ul {
+	float: right;
+	overflow:hidden;
+	margin-top:35px;
+	margin-right:50px;
+}
+
+header ul li {
+	font-size:25px;
+	margin-left:40px;
+	float: left;
+	color:black;
+}
+#sss {
+	width:500px;
+	height:500px;
+	background:deeppink;
+}
+/*#page01 { 
+background:url(../img/sky1.jpg) no-repeat;
+background-position:cover;
+background-size:100%; }*/
+#page01 video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+	width:100%;
+
+}
+#page02 {background: green;}
+#page03 { background:orange; }
+#page04 {background: blue;}
+#page05 {background: olive;}
+
+#box {
+	position:relative;
+	top:83%;
+	left:50%;
+	transform:translateX(-50%);
+	width:15px;
+	height:30px;
+	background:none;
+	border:3px solid black;
+	border-radius:18px;
+}
+#box #dot {
+	position:absolute;
+	width:12px;
+	height:12px;
+	border-radius: 50%;
+	background:none;
+/*	border:1px solid black;*/
+	top:40%;
+	left:50%;
+	transform:translate(-50%,-50%);
+	animation: bbb 2s infinite;
+	transition:all 1s;
+	/*transform:rotate(180deg);*/
+	
+}
+@keyframes bbb {
+	/*0% {margin-top:-10px;}*/
+	50% {margin-top:8px;}
+/*	100% {margin-top:-5px;}*/
+}
+#box:hover {
+	opacity:0.7; 
+}
+#box p {
+	position:absolute;
+	top:-80%;
+	left:50%;
+	font-size:14px;
+	/*background:pink;*/
+	width:100px;
+	margin-left: -50px;
+	text-align: center;
+	opacity:1;
+}
+#box #dot img {
+	width: 100%	
+}
+
+
+button {
+	width:30px;
+	height:30px;
+	position:fixed;
+	top:85%;
+	right:4%;
+	border:none;
+	outline:none;
+	background:none;
+	animation: aaa infinite 2s
+}
+@keyframes aaa {
+	50% {margin-top:-15px;}
+	100% {margin-top:0;}
+}
+
+button img {
+	width:100%;
+}
+
+
+
+</style>
+
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script src="../js/jquery.mousewheel.min.js"></script>
+<script>
+	$(function(){ 
+
+	
+				 winHeight = $(window).height()
+			$('.wrap').mousewheel(function(e,delta){
+				 myPos = $(this).offset().top;
+			if ( delta > 0) {
+				$("html:not(:animated),body:not(:animated)").animate({scrollTop:myPos - winHeight});
+				return false;
+				}else {
+				$("html:not(:animated),body:not(:animated)").animate({scrollTop:myPos + winHeight});
+				return false;
+				}
+
+})
+		var win = $(window).scrollTop()
+		$('.btn').click(function(){
+			$('html,body').animate({scrollTop:0})
+			return false
+		})
+			
+
+			$('header ul li').click(function(){
+			var a = $(this).index()
+			var b = $(window).height()
+			$('body,html').animate({scrollTop:b * a})
+			return false
+		})
+			//화면 한개씩만 넘어간다. 만약 portfolio페이지가2개 
+		
+		// var a = $('#box01').offset().top height값? 얼마 차이나는지 알아내느 방법
+		// alert(a)
+
+		$(window).scroll(function(){
+			var page2 = $('#page02').offset().top
+			if( $(window).scrollTop() >= page2 ){
+				$('header').show()
+			} else {
+				$('header').hide()
+			}
+		})
+
+	})
+
+</script>
+<body>
+
+
+<div id="page01" class="wrap">
+	<video loop muted autoplay> <source src="../mp4/cloud.mp4"></video>
+	<div id="box">
+		<p>Scroll down </p>
+		<div id="dot"><img src="../img/direction.svg" alt=""></div>
+	</div>
+	<header>
+	<nav>
+		<ul>
+			<li><a href="#">About</a></li>
+			<li><a href="#">Skill</a></li>
+			<li><a href="#">Portfolio</a></li>
+			<li><a href="#">Contact</a></li>
+		</ul>
+	</nav>
+</header>
+	
+
+</div>
+<div id="page02" class="wrap"></div>
+<div id="page03" class="wrap"></div>
+<div id="page04" class="wrap"></div>
+<div id="page05" class="wrap"></div>
+
+<button class="btn"><a href="#"><img src="../img/airport.svg" alt=""></a></button>
+
+</body>
+</html>
